@@ -1,7 +1,7 @@
 declare global { interface Window { guard:any } }
 import "./style.css";
 const app=document.querySelector<HTMLDivElement>("#app")!;
-app.innerHTML=`<header><div><h1>Codex Quota Guard</h1><p>本地运行 · 账号隔离 · 5 小时额度保护</p></div><span id="state" class="pill">启动中</span></header>
+app.innerHTML=`<header><div><h1>codex-account-limit-management</h1><p>本地运行 · 账号隔离 · 5 小时额度保护</p></div><span id="state" class="pill">启动中</span></header>
 <section class="panel"><h2>当前账号</h2><div class="email" id="email">读取中…</div><div class="muted" id="plan"></div><div class="meter"><div id="bar"></div></div><div class="quota"><strong id="remaining">—</strong><span>剩余额度</span><small id="used">已使用 —</small></div><p id="status" class="muted">正在连接 Codex App Server…</p></section>
 <section class="panel"><h2>保护设置</h2><label>受保护账号 A 邮箱<input id="emailA" type="email" placeholder="输入账号 A 的 ChatGPT 邮箱"></label><label>Codex CLI 路径（可留空自动查找）<input id="codexPath" type="text" placeholder="例如 C:\\Users\\你的用户名\\AppData\\Roaming\\npm\\codex.cmd"></label><p class="muted">如果自动查找不到，请填写 codex.exe 或 codex.cmd 的完整路径。</p><div class="grid"><label>停止阈值（剩余 %）<input id="threshold" type="number" min="1" max="50" value="20"></label><label>检查间隔（秒）<input id="poll" type="number" min="5" max="60" value="12"></label></div><label class="check"><input id="auto" type="checkbox">启用自动点击 Codex 停止按钮</label><div class="actions"><button id="save">保存设置</button><button class="secondary" id="test">测试停止按钮（会尝试停止当前任务）</button></div><p class="warn">首次使用请先关闭自动停止，完成账号识别与停止按钮测试。UI 自动化依赖 Codex 界面语言和版本，点击成功不等于任务已结束。</p></section>
 <section class="panel"><h2>运行日志</h2><pre id="logs">等待日志…</pre></section><footer>仅在本机读取 Codex App Server 状态；不上传认证令牌。</footer>`;

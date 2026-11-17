@@ -49,7 +49,7 @@ async function stopCodexTask(){
  const child=spawn("powershell.exe",["-NoProfile","-ExecutionPolicy","Bypass","-File",ps],{windowsHide:true});
  let out="";child.stdout.on("data",d=>out+=d.toString());child.stderr.on("data",d=>out+=d.toString());
  child.on("error",err=>{snapshot.lastAction="无法启动 PowerShell UI Automation："+err.message;log(snapshot.lastAction);publish();});
- child.on("close",code=>{snapshot.lastAction=out.trim()||`UIA exit ${code}`;log(snapshot.lastAction);if(code===0)new Notification({title:"Codex Quota Guard",body:"已向 Codex 停止按钮发送点击。请确认任务已停止。"}).show();publish();});
+ child.on("close",code=>{snapshot.lastAction=out.trim()||`UIA exit ${code}`;log(snapshot.lastAction);if(code===0)new Notification({title:"codex-account-limit-management",body:"已向 Codex 停止按钮发送点击。请确认任务已停止。"}).show();publish();});
 }
 function resolveCodexCommand(): string | null {
  // 1) Explicit path from settings / environment has highest priority.
@@ -129,7 +129,7 @@ function startServer(){
   log(snapshot.status); publish();
  });
  child.once("spawn", () => {
-  send("initialize", { clientInfo: { name: "codex_quota_guard", title: "Codex Quota Guard", version: "0.1.1" } })
+  send("initialize", { clientInfo: { name: "codex_quota_guard", title: "codex-account-limit-management", version: "0.1.1" } })
    .then(() => { if (proc === child && child.stdin.writable) child.stdin.write(JSON.stringify({ method: "initialized", params: {} }) + "\n"); })
    .then(refresh)
    .catch((e: any) => { snapshot.status = "App Server 初始化失败：" + e.message; log(snapshot.status); publish(); });
@@ -140,7 +140,7 @@ function createWindow(){win=new BrowserWindow({width:760,height:680,minWidth:650
  win.on("close",e=>{e.preventDefault();win?.hide();});}
 app.whenReady().then(()=>{
  try{cfg={...cfg,...JSON.parse(fs.readFileSync(configPath(),"utf8"))};}catch{}
- createWindow();tray=new Tray(nativeImage.createEmpty());tray.setToolTip("Codex Quota Guard");tray.setContextMenu(Menu.buildFromTemplate([{label:"打开",click:()=>win?.show()},{label:"退出",click:()=>{proc?.kill();app.exit();}}]));
+ createWindow();tray=new Tray(nativeImage.createEmpty());tray.setToolTip("codex-account-limit-management");tray.setContextMenu(Menu.buildFromTemplate([{label:"打开",click:()=>win?.show()},{label:"退出",click:()=>{proc?.kill();app.exit();}}]));
  startServer();setInterval(refresh,Math.max(5,cfg.pollSeconds)*1000);
 });
 ipcMain.handle("get-snapshot",()=>snapshot);

@@ -21,7 +21,7 @@
   },
   "build": {
     "appId": "local.codexquotaguard",
-    "productName": "Codex Quota Guard",
+    "productName": "codex-account-limit-management",
     "files": [
       "dist/**/*",
       "package.json"

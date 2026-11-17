@@ -1,4 +1,4 @@
-# Codex Quota Guard
+# codex-account-limit-management
 
 Windows 11 本地额度守护程序（Electron + TypeScript）。
 
