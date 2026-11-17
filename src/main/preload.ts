@@ -1,0 +1,2 @@
+import {contextBridge,ipcRenderer} from "electron";
+contextBridge.exposeInMainWorld("guard",{getSnapshot:()=>ipcRenderer.invoke("get-snapshot"),getSettings:()=>ipcRenderer.invoke("get-settings"),saveSettings:(v:any)=>ipcRenderer.invoke("save-settings",v),testStop:()=>ipcRenderer.invoke("test-stop"),onSnapshot:(cb:(v:any)=>void)=>ipcRenderer.on("snapshot",(_,v)=>cb(v))});
