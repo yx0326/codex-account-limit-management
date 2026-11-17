@@ -1,11 +1,11 @@
 {
   "name": "codex-quota-guard",
-  "version": "0.1.2",
+  "version": "0.1.8",
   "private": true,
   "description": "Local Windows quota guard for Codex Desktop",
   "main": "dist/main/main.js",
   "scripts": {
-    "dev": "concurrently -k \"tsc -w -p tsconfig.main.json\" \"vite --host 127.0.0.1 --port 2326 --strictPort\" \"wait-on http://127.0.0.1:2326 && electron .\"",
+    "dev": "tsc -p tsconfig.main.json && concurrently -k \"tsc -w -p tsconfig.main.json\" \"vite --host 127.0.0.1 --port 2326 --strictPort\" \"wait-on http://127.0.0.1:2326 && electron .\"",
     "build": "tsc -p tsconfig.main.json && vite build",
     "start": "electron .",
     "package:win": "npm run build && electron-builder --win nsis"
@@ -21,7 +21,7 @@
   },
   "build": {
     "appId": "local.codexquotaguard",
-    "productName": "codex-account-limit-management",
+    "productName": "Codex Quota Guard",
     "files": [
       "dist/**/*",
       "package.json"
